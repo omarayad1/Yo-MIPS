@@ -9,7 +9,8 @@ class parser:
 	text_segment_instance = text_segment()
 	data_segment_instance = data_segment()
 	registers_instance = register_index()
-	
+	instruction_instance = instruction_index()
+
 	def get_32_bits(self, machine_code_file):
 		self.machine_code_word = machine_code_file.read(4)
 		self.machine_code_word = struct.pack('<I', int(self.machine_code_word.encode('hex'), 16))
@@ -41,7 +42,7 @@ class parser:
 		return self.address
 	def parse_instruction(self, machine_code_word):
 		self.opcode_2 = self.get_instruction_type(machine_code_word)
-		self.text_segment_instance.append_instruction(copy.deepcopy(instruction.instruction_op_index[self.opcode_2]), self.registers_instance.register_index[self.get_rs(machine_code_word)], self.registers_instance.register_index[self.get_rt(machine_code_word)], self.get_immediate(machine_code_word))
+		self.text_segment_instance.append_instruction(copy.deepcopy(self.instruction_instance.instruction_op_index[self.opcode_2]), self.registers_instance.register_index[self.get_rs(machine_code_word)], self.registers_instance.register_index[self.get_rt(machine_code_word)], self.get_immediate(machine_code_word))
 		return self.text_segment_instance.globl_main
 	def parse_32_bit_data(self, machine_code_word):
 		self.data_segment_instance.append_data(machine_code_word)

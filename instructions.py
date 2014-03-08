@@ -30,5 +30,6 @@ class add(instruction):
 	def __new__(self):
 		__class__ = add
 		__name__ = add
-
-instruction.instruction_op_index = {0xf : lui()}
+class instruction_index:
+	def __init__(self):
+		self.instruction_op_index = {0xf : lui()}
