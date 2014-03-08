@@ -1,7 +1,10 @@
 from instructions import *
 from parser import *
 
-machine_code = open('s1_data.bin','rb')
+machine_code = open('s1.bin','rb')
 parser_instance = parser()
 
-print parser_instance.parse_32_bit_data(parser_instance.get_32_bits(machine_code))
+batee5 = parser_instance.parse_instruction(parser_instance.get_32_bits(machine_code))
+instruction_instance = batee5[4194304][0]
+print instruction_instance
+print instruction_instance.excute()

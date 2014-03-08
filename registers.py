@@ -3,12 +3,12 @@ class register:
 		self.number = 0
 		self.value = 0
 		self.modifiable = True
-		self.register_index = {}
 class zero(register):
 	def __init__(self):
 		self.modifiable = False
 class at(register):
 	def __init__(self):
+		register.__init__(self)
 		self.number = 1
 class v0(register):
 	def __init__(self):
@@ -104,6 +104,6 @@ class ra(register):
 	def __init__(self):
 		self.number = 31
 		self.modifiable = False
-class register:
+class register_index(register):
 	def __init__(self):
 		self.register_index = {0 : zero(), 1 : at(), 2 : v0(), 3 : v1(), 4 : a0(), 5 : a1(), 6 : a2(), 7 : a3(), 8 : t0(), 9 : t1(), 10 : t2(), 11 : t3(), 12 : t4(), 13 : t5(), 14 : t6(), 15 : t7(), 16 : s0(), 17 : s1(), 18 : s2(), 19 : s3(), 20 : s4(), 21 : s5(), 22 : s6(), 23 : s7(), 24 : t8(), 25 : t9(), 26 : k0(), 27 : k1(), 28 : gp(), 29 : sp(), 30 : fp(), 31 : ra()}

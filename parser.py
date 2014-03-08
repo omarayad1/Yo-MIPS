@@ -8,7 +8,8 @@ from data import *
 class parser:
 	text_segment_instance = text_segment()
 	data_segment_instance = data_segment()
-	registers_instance = register()
+	registers_instance = register_index()
+	
 	def get_32_bits(self, machine_code_file):
 		self.machine_code_word = machine_code_file.read(4)
 		self.machine_code_word = struct.pack('<I', int(self.machine_code_word.encode('hex'), 16))
