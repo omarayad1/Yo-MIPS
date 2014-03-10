@@ -27,3 +27,4 @@ class text_segment:
 		self.globl_main[self.pc][0].excute()
 		self.pc += 4
 		return self.pc
+text_segment_instance = text_segment()
