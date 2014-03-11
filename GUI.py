@@ -1,10 +1,11 @@
 import sys
 from PySide import QtGui, QtCore
 
-class instruction_box(QtGui.QTextEdit):
+class instruction_box(QtGui.QLabel):
     def __init__(self, title, parent):
         super(instruction_box, self).__init__(title, parent)
         self.setAcceptDrops(True)
+        self.setStyleSheet(u'min-height: 400px;background-color: #fff')
     def dragEnterEvent(self, e):
         self.setStyleSheet(u'background-color: #333')
         e.accept()
@@ -12,7 +13,7 @@ class instruction_box(QtGui.QTextEdit):
         binary_file = e.mimeData().text()
         self.setStyleSheet(u'background-color: #fff')
     def dragLeaveEvent(self, e):
-        self.setStyleSheet(u'background-color: #fff')
+        self.setStyleSheet(u'background-color: #fff;')
 class main_window(QtGui.QWidget):
 
     def __init__(self):
@@ -27,10 +28,3 @@ class main_window(QtGui.QWidget):
         self.setGeometry(200, 100, 1000, 650)
         self.setWindowTitle('Yo MIPS')
         self.show()
-def main():
-    app = QtGui.QApplication(sys.argv)
-    ex = main_window()
-    sys.exit(app.exec_())
-
-if __name__ == '__main__':
-    main()
