@@ -6,22 +6,14 @@ class text_segment:
 		if (rt is None) & (rd_or_immediate is None) & (shamt is None):
 			self.globl_main.update({self.pc+4 : [instruction, rs_or_address]})
 			self.pc += 4
-			instruction.address = rs_or_address
 			return self.globl_main
 		elif shamt is None:
 			self.globl_main.update({self.pc+4 : [instruction, rs_or_address, rt, rd_or_immediate]})
 			self.pc += 4
-			instruction.source = rs_or_address
-			instruction.target = rt
-			instruction.immediate = rd_or_immediate
 			return self.globl_main
 		else:
 			self.globl_main.update({self.pc+4 : [instruction, rs_or_address, rt, rd_or_immediate, shamt]})
 			self.pc += 4
-			instruction.source = rs_or_address
-			instruction.target = rt
-			instruction.destination = rd_or_immediate
-			instruction.shamt = shamt
 			return self.globl_main
 	def excute_instruction(self):
 		self.globl_main[self.pc][0].excute()
