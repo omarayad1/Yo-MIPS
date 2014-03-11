@@ -19,8 +19,9 @@ class instruction_box(QtGui.QLabel):
         self.binary_file = self.binary_file.replace('file://', '')
         machine_code = open(self.binary_file,'rb')
         parser_instance = parser()
-        batee5 = parser_instance.parse_instruction(parser_instance.get_32_bits(machine_code))
+        batee5 = parser_instance.parse_all_instructions(machine_code)
         self.setText(text_segment_instance.print_instruction())
+        print text_segment_instance.globl_main
     def dragLeaveEvent(self, e):
         self.setStyleSheet(u'background-color: #eee;')
 class main_window(QtGui.QWidget):
