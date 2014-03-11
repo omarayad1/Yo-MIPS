@@ -37,7 +37,7 @@ class parser:
 		self.immediate = (machine_code_word >> 0) & 0xffff
 		if (self.immediate >> 15) & 1:	#If number is negative
 			self.immediate -= 1
-			self.immediate = (~self.immediate)
+			self.immediate = ~self.immediate
 			self.immediate = self.immediate & 0xffff
 			self.immediate *= -1
 		return self.immediate
@@ -78,6 +78,14 @@ class parser:
 			word = self.get_32_bits(machine_code_file)
 			while word != '':
 				self.parse_instruction(word)
+				word = self.get_32_bits(machine_code_file)
+		finally:
+			machine_code_file.close()
+	def parse_all_data(self, machine_code_file):
+		try:
+			word = self.get_32_bits(machine_code_file)
+			while word != '':
+				self.parse_32_bit_data(word)
 				word = self.get_32_bits(machine_code_file)
 		finally:
 			machine_code_file.close()
