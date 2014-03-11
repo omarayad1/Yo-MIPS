@@ -45,5 +45,6 @@ class text_segment:
 				+ self.globl_main[self.pc][2].name + ", " \
 				+ str(self.globl_main[self.pc][3]) + "\n"
 			self.pc += 4
+		self.pc = 0x03FFFFC #resets the program counter
 		return instruction_string
 text_segment_instance = text_segment()
