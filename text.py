@@ -17,6 +17,12 @@ class text_segment:
 			return self.globl_main
 	def excute_instruction(self):
 		self.globl_main[self.pc][0].excute()
-		self.pc += 4
 		return self.pc
+	def print_instruction(self):
+		instruction_string = hex(self.pc) + ": " \
+		+ self.globl_main[self.pc][0].name + " " \
+		+ self.globl_main[self.pc][2].name + ", " \
+		+ self.globl_main[self.pc][1].name + ", " \
+		+ str(self.globl_main[self.pc][3]) + "\n"
+		return instruction_string
 text_segment_instance = text_segment()

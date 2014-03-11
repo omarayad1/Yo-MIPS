@@ -38,7 +38,7 @@ class parser:
 		return self.address
 	def parse_instruction(self, machine_code_word):
 		self.opcode_2 = self.get_instruction_type(machine_code_word)
-		text_segment_instance.append_instruction(copy.deepcopy(instruction_instance.instruction_op_index[self.opcode_2]), registers_instance.register_index[self.get_rs(machine_code_word)], registers_instance.register_index[self.get_rt(machine_code_word)], self.get_immediate(machine_code_word))
+		text_segment_instance.append_instruction(instruction_instance.instruction_op_index[self.opcode_2], registers_instance.register_index[self.get_rs(machine_code_word)], registers_instance.register_index[self.get_rt(machine_code_word)], self.get_immediate(machine_code_word))
 		return text_segment_instance.globl_main
 	def parse_32_bit_data(self, machine_code_word):
 		data_segment_instance.append_data(machine_code_word)
