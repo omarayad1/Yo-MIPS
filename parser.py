@@ -35,6 +35,11 @@ class parser:
 		return self.funct
 	def get_immediate(self, machine_code_word):
 		self.immediate = (machine_code_word >> 0) & 0xffff
+		if (self.immediate >> 15) & 1:	#If number is negative
+			self.immediate -= 1
+			self.immediate = (~self.immediate)
+			self.immediate = self.immediate & 0xffff
+			self.immediate *= -1
 		return self.immediate
 	def get_address(self, machine_code_word):
 		self.address = (machine_code_word >> 0) & 0x3ffffff
@@ -44,24 +49,24 @@ class parser:
 		if self.opcode_2 == 0:
 			try:
 				text_segment_instance.append_instruction(instruction_instance.instruction_op_index[(self.opcode_2, self.get_funct(machine_code_word))], \
-												registers_instance.register_index[self.get_rs(machine_code_word)], \
-												registers_instance.register_index[self.get_rt(machine_code_word)], \
-												registers_instance.register_index[self.get_rd(machine_code_word)], \
-												registers_instance.register_index[self.get_shamt(machine_code_word)])
+				registers_instance.register_index[self.get_rs(machine_code_word)], \
+				registers_instance.register_index[self.get_rt(machine_code_word)], \
+				registers_instance.register_index[self.get_rd(machine_code_word)], \
+				registers_instance.register_index[self.get_shamt(machine_code_word)])
 			except KeyError:
 				pass
 		elif (self.opcode_2 == 2) | (self.opcode_2 == 3):
 			try:
 				text_segment_instance.append_instruction(instruction_instance.instruction_op_index[self.opcode_2], \
-												registers_instance.register_index[self.get_address(machine_code_word)])
+				registers_instance.register_index[self.get_address(machine_code_word)])
 			except KeyError:
 				pass
 		else:
 			try:
 				text_segment_instance.append_instruction(instruction_instance.instruction_op_index[self.opcode_2], \
-												registers_instance.register_index[self.get_rs(machine_code_word)], \
-												registers_instance.register_index[self.get_rt(machine_code_word)], \
-												self.get_immediate(machine_code_word))
+				registers_instance.register_index[self.get_rs(machine_code_word)], \
+				registers_instance.register_index[self.get_rt(machine_code_word)], \
+				self.get_immediate(machine_code_word))
 			except KeyError:
 				pass
 		return text_segment_instance.globl_main

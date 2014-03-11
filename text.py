@@ -15,14 +15,35 @@ class text_segment:
 			self.globl_main.update({self.pc+4 : [instruction, rs_or_address, rt, rd_or_immediate, shamt]})
 			self.pc += 4
 			return self.globl_main
-	def excute_instruction(self):
-		self.globl_main[self.pc][0].excute()
+	def execute_instructions(self):
+		self.globl_main[self.pc][0].execute()
 		return self.pc
 	def print_instruction(self):
-		instruction_string = hex(self.pc) + ": " \
-		+ self.globl_main[self.pc][0].name + " " \
-		+ self.globl_main[self.pc][2].name + ", " \
-		+ self.globl_main[self.pc][1].name + ", " \
-		+ str(self.globl_main[self.pc][3]) + "\n"
+		instruction_string = ''
+		self.pc = 0x03FFFFC + 4
+		max_address = max(self.globl_main.keys())
+		while self.pc <= max_address:
+			opcode = self.globl_main[self.pc][0].opcode
+			if opcode == 0:
+				instruction_string += hex(self.pc) + ": " \
+				+ self.globl_main[self.pc][0].name + " " \
+				+ self.globl_main[self.pc][3].name + ", " \
+				+ self.globl_main[self.pc][1].name + ", " \
+				+ self.globl_main[self.pc][2].name + "\n"
+			elif (opcode == 2) | (opcode == 3):
+				pass
+			elif self.globl_main[self.pc][0].load_store is True:
+				instruction_string += hex(self.pc) + ": " \
+				+ self.globl_main[self.pc][0].name + " " \
+				+ self.globl_main[self.pc][2].name + ", " \
+				+ str(self.globl_main[self.pc][3]) + "(" \
+				+ self.globl_main[self.pc][1].name + ")\n"
+			else:
+				instruction_string += hex(self.pc) + ": " \
+				+ self.globl_main[self.pc][0].name + " " \
+				+ self.globl_main[self.pc][1].name + ", " \
+				+ self.globl_main[self.pc][2].name + ", " \
+				+ str(self.globl_main[self.pc][3]) + "\n"
+			self.pc += 4
 		return instruction_string
 text_segment_instance = text_segment()
