@@ -1,5 +1,3 @@
-from instructions import *
-from parser import *
 from GUI import *
 
 app = QtGui.QApplication(sys.argv)

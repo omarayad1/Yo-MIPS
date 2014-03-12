@@ -69,7 +69,15 @@ class bne(instruction):
 		self.name = 'bne'
 	def execute(self):
 		pass
+class syscall(instruction):
+	def __init__(self):
+		instruction.__init__(self)
+		self.opcode = 0x0
+		self.funct = 0xc
+		self.name = 'syscall'
+	def execute(self):
+		pass
 class instruction_index:
 	def __init__(self):
-		self.instruction_op_index = {0xf : lui(), 0xd : ori(), 0x8 : addi(), (0x0, 0x20) : add(), 0x9  : addiu(), 0x23 : lw(), 0x5 : bne()}
+		self.instruction_op_index = {0xf : lui(), 0xd : ori(), 0x8 : addi(), (0x0, 0x20) : add(), 0x9  : addiu(), 0x23 : lw(), 0x5 : bne(), (0x0, 0xc) : syscall()}
 instruction_instance = instruction_index()

@@ -24,7 +24,11 @@ class text_segment:
 		max_address = max(self.globl_main.keys())
 		while self.pc <= max_address:
 			opcode = self.globl_main[self.pc][0].opcode
-			if opcode == 0:
+			funct = self.globl_main[self.pc][0].funct
+			if (opcode == 0) & (funct == 0xc):
+				instruction_string += hex(self.pc) + ": " \
+				+ self.globl_main[self.pc][0].name
+			elif opcode == 0:
 				instruction_string += hex(self.pc) + ": " \
 				+ self.globl_main[self.pc][0].name + " " \
 				+ self.globl_main[self.pc][3].name + ", " \
