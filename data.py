@@ -6,8 +6,4 @@ class data_segment:
 		self.data.update({self.current_address+4 : [machine_code_word >> 24, (machine_code_word >> 16)&0x00ff, (machine_code_word >> 8)&0x0000ff, machine_code_word&0x000000ff]})
 		self.current_address += 4
 		return self.data
-	def initialize(self):
-		while self.current_address <= 0x100101fc:
-			self.append_data(0)
-		self.current_address = 0x1000fffc
 data_segment_instance = data_segment()
