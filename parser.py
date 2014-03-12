@@ -89,3 +89,4 @@ class parser:
 				word = self.get_32_bits(machine_code_file)
 		finally:
 			machine_code_file.close()
+parser_instance = parser()

@@ -89,7 +89,6 @@ class and_(instruction):
 		text_segment_instance.globl_main[text_segment_instance.pc][3].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value & \
 		text_segment_instance.globl_main[text_segment_instance.pc][2].value
 		return text_segment_instance.globl_main[text_segment_instance.pc][3].value
-
 class syscall(instruction):
 	def __init__(self):
 		instruction.__init__(self)
@@ -100,5 +99,6 @@ class syscall(instruction):
 		pass
 class instruction_index:
 	def __init__(self):
-		self.instruction_op_index = {0xf : lui(), 0xd : ori(), 0x8 : addi(), (0x0, 0x20) : add(), 0x9  : addiu(), 0x23 : lw(), 0x5 : bne(), (0x0, 0xc) : syscall(), (0x0, 0x22) : sub(), (0x0,0x24):and_()}
+		self.instruction_op_index = {0xf : lui(), 0xd : ori(), 0x8 : addi(), (0x0, 0x20) : add(), 0x9  : addiu(), \
+		0x23 : lw(), 0x5 : bne(), (0x0, 0xc) : syscall(), (0x0, 0x22) : sub(), (0x0,0x24):and_()}
 instruction_instance = instruction_index()
