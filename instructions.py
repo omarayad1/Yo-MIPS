@@ -86,10 +86,21 @@ class and_(instruction):
 		self.funct = 0x24
 		self.name = 'and'
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][3].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value & \
-		text_segment_instance.globl_main[text_segment_instance.pc][2].value
+                if text_segment_instance.globl_main[text_segment_instance.pc][1].value < text_segment_instance.globl_main[text_segment_instance.pc][2].value:
+                        text_segment_instance.globl_main[text_segment_instance.pc][3].value = 1
+                else:
+                        text_segment_instance.globl_main[text_segment_instance.pc][3].value = 0
+		
 		return text_segment_instance.globl_main[text_segment_instance.pc][3].value
-
+class slti(instruction):
+        def __init__(self):
+		instruction.__init__(self)
+		self.opcode = 0xa
+		self.name = 'slti'
+	def execute(self):
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value + \
+		text_segment_instance.globl_main[text_segment_instance.pc][3]
+		return text_segment_instance.globl_main[text_segment_instance.pc][2].value
 class syscall(instruction):
 	def __init__(self):
 		instruction.__init__(self)
@@ -100,5 +111,5 @@ class syscall(instruction):
 		pass
 class instruction_index:
 	def __init__(self):
-		self.instruction_op_index = {0xf : lui(), 0xd : ori(), 0x8 : addi(), (0x0, 0x20) : add(), 0x9  : addiu(), 0x23 : lw(), 0x5 : bne(), (0x0, 0xc) : syscall(), (0x0, 0x22) : sub(), (0x0,0x24):and_()}
+		self.instruction_op_index = {0xf : lui(), 0xd : ori(), 0x8 : addi(), (0x0, 0x20) : add(), 0x9  : addiu(), 0x23 : lw(), 0x5 : bne(), (0x0, 0xc) : syscall(), (0x0, 0x22) : sub(), (0x0,0x24):and_(), 0xa : slti()}
 instruction_instance = instruction_index()
