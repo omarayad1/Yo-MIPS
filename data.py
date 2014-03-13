@@ -10,4 +10,12 @@ class data_segment:
 		whole_address = address + offset
 		word = (self.data[whole_address][0] << 24) + (self.data[whole_address][1] << 16) + (self.data[whole_address][2] << 8) + (self.data[whole_address][3])
 		return word
+	def load_half_word(self, address, offset):
+		whole_address = address + offset
+		half_word = (self.data[whole_address][0] << 8) + (self.data[whole_address][1])
+		return half_word
+	def load_byte(self, address, offset):
+		whole_address = address + offset
+		byte = (self.data[whole_address][0])
+		return byte
 data_segment_instance = data_segment()

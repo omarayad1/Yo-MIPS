@@ -4,6 +4,7 @@ from parser import parser_instance
 from text import text_segment_instance
 from data import data_segment_instance
 from output import output_segment_instance
+
 class simulate_button(QtGui.QPushButton):
     def __init__(self, title, parent):
         super(simulate_button, self).__init__(title, parent)

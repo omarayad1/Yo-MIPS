@@ -2,6 +2,7 @@ from registers import registers_instance
 from text import text_segment_instance
 from data import data_segment_instance
 from output import output_segment_instance
+
 class instruction:
 	def __init__(self):
 		self.opcode = 0
@@ -80,7 +81,9 @@ class bne(instruction):
 		self.opcode = 0x5
 		self.name = 'bne'
 	def execute(self):
-		pass
+		if text_segment_instance.globl_main[text_segment_instance.pc][2].value != text_segment_instance.globl_main[text_segment_instance.pc][1].value:
+			text_segment_instance.pc += (text_segment_instance.globl_main[text_segment_instance.pc][3] * 4)
+		else: pass
 class and_(instruction):
         def __init__(self):
 		instruction.__init__(self)

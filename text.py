@@ -42,7 +42,9 @@ class text_segment:
 				+ self.globl_main[self.pc][1].name + ", " \
 				+ self.globl_main[self.pc][2].name + "\n"
 			elif (opcode == 2) | (opcode == 3):
-				pass
+				instruction_string += hex(self.pc) + ": " \
+				+ self.globl_main[self.pc][0].name + " " \
+				+ hex(self.globl_main[self.pc][1]) + "\n"
 			elif self.globl_main[self.pc][0].load_store is True:
 				instruction_string += hex(self.pc) + ": " \
 				+ self.globl_main[self.pc][0].name + " " \
