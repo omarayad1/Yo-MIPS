@@ -95,11 +95,11 @@ class slti(instruction):
 		self.opcode = 0xa
 		self.name = 'slti'
 	def execute(self):
-		 if text_segment_instance.globl_main[text_segment_instance.pc][1].value < text_segment_instance.globl_main[text_segment_instance.pc][2].value:
-                        text_segment_instance.globl_main[text_segment_instance.pc][3].value = 1
+		 if text_segment_instance.globl_main[text_segment_instance.pc][1].value < text_segment_instance.globl_main[text_segment_instance.pc][3].value:
+                        text_segment_instance.globl_main[text_segment_instance.pc][2].value = 1
                 else:
-                        text_segment_instance.globl_main[text_segment_instance.pc][3].value = 0
-          return text_segment_instance.globl_main[text_segment_instance.pc][3].value              
+                        text_segment_instance.globl_main[text_segment_instance.pc][2].value = 0
+          return text_segment_instance.globl_main[text_segment_instance.pc][2].value              
 class or_(instruction):
         def __init__(self):
 		instruction.__init__(self)
