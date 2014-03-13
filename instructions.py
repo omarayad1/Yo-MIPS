@@ -172,6 +172,24 @@ class srl(instruction):
 		text_segment_instance.globl_main[text_segment_instance.pc][3].value = text_segment_instance.globl_main[text_segment_instance.pc][2].value >> \
 		text_segment_instance.globl_main[text_segment_instance.pc][4].value
 		return text_segment_instance.globl_main[text_segment_instance.pc][3].value
+class xori(instruction):
+	def __init__(self):
+		instruction.__init__(self)
+		self.opcode = 0xe
+		self.name = 'xori'
+	def execute(self):
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value ^ \
+		text_segment_instance.globl_main[text_segment_instance.pc][3]
+		return text_segment_instance.globl_main[text_segment_instance.pc][2].value	
+class addi(instruction):
+	def __init__(self):
+		instruction.__init__(self)
+		self.opcode = 0xc
+		self.name = 'addi'
+	def execute(self):
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value & \
+		text_segment_instance.globl_main[text_segment_instance.pc][3]
+		return text_segment_instance.globl_main[text_segment_instance.pc][2].value
 class syscall(instruction):
 	def __init__(self):
 		instruction.__init__(self)
@@ -182,5 +200,5 @@ class syscall(instruction):
 		pass
 class instruction_index:
 	def __init__(self):
-		self.instruction_op_index = {0xf : lui(), 0xd : ori(), 0x8 : addi(), (0x0, 0x20) : add(), 0x9  : addiu(), 0x23 : lw(), 0x5 : bne(), (0x0, 0xc) : syscall(), (0x0, 0x22) : sub(), (0x0,0x24):and_(), 0xa: slti(), (0x0, 0x25) : or_(), (0x0, 0x2a) : slt(), (0x0, 0x23) : subu(), (0x0, 0x21) : addu(), (0x0, 0x26) : xor(), (0x0, 0x00) : sll(), (0x0, 0x02) : srl()}
+		self.instruction_op_index = {0xf : lui(), 0xd : ori(), 0x8 : addi(), (0x0, 0x20) : add(), 0x9  : addiu(), 0x23 : lw(), 0x5 : bne(), (0x0, 0xc) : syscall(), (0x0, 0x22) : sub(), (0x0,0x24):and_(), 0xa: slti(), (0x0, 0x25) : or_(), (0x0, 0x2a) : slt(), (0x0, 0x23) : subu(), (0x0, 0x21) : addu(), (0x0, 0x26) : xor(), (0x0, 0x00) : sll(), (0x0, 0x02) : srl(), 0xe  : xori(), 0xc  : addi()}
 instruction_instance = instruction_index()
