@@ -15,9 +15,16 @@ class text_segment:
 			self.globl_main.update({self.pc+4 : [instruction, rs_or_address, rt, rd_or_immediate, shamt]})
 			self.pc += 4
 			return self.globl_main
-	def execute_instructions(self):
+	def execute_instruction(self):
 		self.globl_main[self.pc][0].execute()
 		return self.pc
+	def execute_all_instructions(self):
+		self.pc = 0x03FFFFC + 4
+		max_address = max(self.globl_main.keys())
+		while self.pc <= max_address:
+			self.execute_instruction()
+			self.pc += 4
+		self.pc = 0x03FFFFC + 4
 	def print_instruction(self):
 		instruction_string = ''
 		self.pc = 0x03FFFFC + 4

@@ -8,8 +8,6 @@ class simulate_button(QtGui.QPushButton):
     def __init__(self, title, parent):
         super(simulate_button, self).__init__(title, parent)
         self.setStyleSheet(u'background-color: #eee')
-    def clicked(self):
-        print "clicked"
 class console_box(QtGui.QTextEdit):
     def __init__(self, title, parent):
         super(console_box, self).__init__(title, parent)
@@ -71,6 +69,7 @@ class main_window(QtGui.QWidget):
         console_preview.move(600, 280)
         simulate_preview = simulate_button("simulate", self)
         simulate_preview.move(600,600)
+        simulate_preview.clicked.connect(text_segment_instance.execute_all_instructions)
         self.setGeometry(200, 100, 1000, 650)
         self.setStyleSheet(u'background-color: #333')
         self.setWindowTitle('Yo! MIPS')

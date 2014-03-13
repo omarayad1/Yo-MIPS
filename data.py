@@ -6,4 +6,9 @@ class data_segment:
 		self.data.update({self.current_address+4 : [machine_code_word >> 24, (machine_code_word >> 16)&0x00ff, (machine_code_word >> 8)&0x0000ff, machine_code_word&0x000000ff]})
 		self.current_address += 4
 		return self.data
+	def load_word(self, address, offset):
+		whole_address = address + offset
+		word = (self.data[whole_address][0] << 24) + (self.data[whole_address][1] << 16) + (self.data[whole_address][2] << 8) + (self.data[whole_address][3])
+		print word
+		return word
 data_segment_instance = data_segment()

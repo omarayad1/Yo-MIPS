@@ -1,6 +1,6 @@
 from registers import register_index
 from text import text_segment_instance
-
+from data import data_segment_instance
 class instruction:
 	def __init__(self):
 		self.opcode = 0
@@ -71,7 +71,8 @@ class lw(instruction):
 		self.name = 'lw'
 		self.load_store = True
 	def execute(self):
-		pass
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value = data_segment_instance.load_word(text_segment_instance.globl_main[text_segment_instance.pc][1].value, \
+		text_segment_instance.globl_main[text_segment_instance.pc][3])
 class bne(instruction):
 	def __init__(self):
 		instruction.__init__(self)
