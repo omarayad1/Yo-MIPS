@@ -9,6 +9,5 @@ class data_segment:
 	def load_word(self, address, offset):
 		whole_address = address + offset
 		word = (self.data[whole_address][0] << 24) + (self.data[whole_address][1] << 16) + (self.data[whole_address][2] << 8) + (self.data[whole_address][3])
-		print word
 		return word
 data_segment_instance = data_segment()

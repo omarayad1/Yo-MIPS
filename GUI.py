@@ -1,9 +1,9 @@
 import sys
 from PySide import QtGui, QtCore
-from instructions import *
 from parser import parser_instance
 from text import text_segment_instance
 from data import data_segment_instance
+from output import output_segment_instance
 class simulate_button(QtGui.QPushButton):
     def __init__(self, title, parent):
         super(simulate_button, self).__init__(title, parent)
@@ -60,16 +60,23 @@ class main_window(QtGui.QWidget):
     def __init__(self):
         super(main_window, self).__init__()
         self.initUI()
+    def instruction_execute_all(self):
+        text_segment_instance.execute_all_instructions()
+        max_address = output_segment_instance.current_line
+        output_segment_instance.current_line = 0
+        while output_segment_instance.current_line < max_address:
+            self.console_preview.setText(output_segment_instance.output[output_segment_instance.current_line])
+            output_segment_instance.current_line += 1
     def initUI(self):
         instruction_preview = instruction_box("Drag the binary output of the text segment here", self)
         instruction_preview.move(190, 65)
         data_preview = data_box(1024, 4, self)
         data_preview.move(600, 65)
-        console_preview = console_box("Press simulate to begin program emulation", self)
-        console_preview.move(600, 280)
+        self.console_preview = console_box("Press simulate to begin program emulation", self)
+        self.console_preview.move(600, 280)
         simulate_preview = simulate_button("simulate", self)
         simulate_preview.move(600,600)
-        simulate_preview.clicked.connect(text_segment_instance.execute_all_instructions)
+        simulate_preview.clicked.connect(self.instruction_execute_all)
         self.setGeometry(200, 100, 1000, 650)
         self.setStyleSheet(u'background-color: #333')
         self.setWindowTitle('Yo! MIPS')

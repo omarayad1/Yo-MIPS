@@ -1,6 +1,7 @@
-from registers import register_index
+from registers import registers_instance
 from text import text_segment_instance
 from data import data_segment_instance
+from output import output_segment_instance
 class instruction:
 	def __init__(self):
 		self.opcode = 0
@@ -97,7 +98,8 @@ class syscall(instruction):
 		self.funct = 0xc
 		self.name = 'syscall'
 	def execute(self):
-		pass
+		if registers_instance.register_index[2].value == 10:
+			output_segment_instance.append_output("Program has finished execution")
 class instruction_index:
 	def __init__(self):
 		self.instruction_op_index = {0xf : lui(), 0xd : ori(), 0x8 : addi(), (0x0, 0x20) : add(), 0x9  : addiu(), \
