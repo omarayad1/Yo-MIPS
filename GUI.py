@@ -3,17 +3,26 @@ from PySide import QtGui, QtCore
 from parser import parser_instance
 from text import text_segment_instance
 from data import data_segment_instance
-from output import output_segment_instance
-
+from output import output_segment_instance, read_batee5_line_instance
+from registers import registers_instance
+class register_box(QtGui.QTableWidget):
+    def __init__(self, row, column, parent):
+        super(register_box, self).__init__(row, column, parent)
+        self.setAcceptDrops(False)
+        self.setStyleSheet(u'background-color: #eee;')
+        self.setHorizontalHeaderLabels(['$zero', '$at', '$v0', '$v1', '$a0', '$a1', '$a2', '$a3', '$t0', \
+        '$t1', '$t2', '$t3', '$t4', '$t5', '$t6', '$t7', '$s0', '$s1', '$s2', '$s3', '$s4', '$s5', '$s6', \
+        '$s7', '$t8', '$t9', '$k0', '$k1', '$gp', '$sp'])
 class simulate_button(QtGui.QPushButton):
     def __init__(self, title, parent):
         super(simulate_button, self).__init__(title, parent)
         self.setStyleSheet(u'background-color: #eee')
-class console_box(QtGui.QTextEdit):
+class console_box(QtGui.QPlainTextEdit):
     def __init__(self, title, parent):
         super(console_box, self).__init__(title, parent)
         self.setAcceptDrops(False)
         self.setStyleSheet(u'min-height: 100px;background-color: #eee')
+        self.setReadOnly(True)
 class data_box(QtGui.QTableWidget):
     def __init__(self, row, column, parent):
         super(data_box, self).__init__(row, column, parent)
@@ -39,12 +48,14 @@ class data_box(QtGui.QTableWidget):
             for x in xrange(4):
                 item_teneen = QtGui.QTableWidgetItem(str(data_segment_instance.data[int(sorted_address[i],16)][x]))
                 self.setItem(i, x, item_teneen)
-class instruction_box(QtGui.QTextEdit):
+class instruction_box(QtGui.QPlainTextEdit):
     def __init__(self, title, parent):
         super(instruction_box, self).__init__(title, parent)
         self.setAcceptDrops(True)
         self.setStyleSheet(u'min-height: 400px;background-color: #eee')
+        self.setReadOnly(True)
     def dragEnterEvent(self, e):
+        self.setReadOnly(False)
         self.setStyleSheet(u'background-color: #333; color: #eee')
         e.accept()
     def dropEvent(self, e):
@@ -54,7 +65,8 @@ class instruction_box(QtGui.QTextEdit):
         self.binary_file = self.binary_file.replace('file://', '')
         machine_code = open(self.binary_file,'rb')
         batee5 = parser_instance.parse_all_instructions(machine_code)
-        self.setText(text_segment_instance.print_instruction())
+        self.setPlainText(text_segment_instance.print_instruction())
+        self.setReadOnly(True)
     def dragLeaveEvent(self, e):
         self.setStyleSheet(u'background-color: #eee;')
 class main_window(QtGui.QWidget):
@@ -66,13 +78,22 @@ class main_window(QtGui.QWidget):
         max_address = output_segment_instance.current_line
         output_segment_instance.current_line = 0
         while output_segment_instance.current_line < max_address:
-            self.console_preview.setText(output_segment_instance.output[output_segment_instance.current_line])
+            # if isinstance(output_segment_instance.output[output_segment_instance.current_line], read_batee5_line_instance):
+            #     while not self.returnPressed:
+            #         self.setReadOnly(False)
+            # else:
+            #     self.console_preview.setPlainText(output_segment_instance.output[output_segment_instance.current_line])
             output_segment_instance.current_line += 1
+        for i in xrange(30):
+            item_teneen_2 = QtGui.QTableWidgetItem(str(registers_instance.register_index[i].value))
+            self.registers_preview.setItem(0, i, item_teneen_2)
     def initUI(self):
         instruction_preview = instruction_box("Drag the binary output of the text segment here", self)
         instruction_preview.move(190, 65)
         data_preview = data_box(1024, 4, self)
         data_preview.move(600, 65)
+        self.registers_preview = register_box(1, 32, self)
+        self.registers_preview.move(200, 400)
         self.console_preview = console_box("Press simulate to begin program emulation", self)
         self.console_preview.move(600, 280)
         simulate_preview = simulate_button("simulate", self)

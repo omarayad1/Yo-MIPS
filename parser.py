@@ -17,6 +17,7 @@ class parser:
 			return ''
 	def get_instruction_type(self, machine_code_word):
 		self.opcode = machine_code_word >> 26
+		print self.opcode
 		return self.opcode
 	def get_rs(self, machine_code_word):
 		self.rs = (machine_code_word >> 21) & 0x1f
@@ -31,7 +32,7 @@ class parser:
 		self.shamt = (machine_code_word >> 6) & 0x1f
 		return self.shamt
 	def get_funct(self, machine_code_word):
-		self.funct = (machine_code_word >> 0) & 0x3f
+		self.funct = (machine_code_word) & 0x3f
 		return self.funct
 	def get_immediate(self, machine_code_word):
 		self.immediate = (machine_code_word >> 0) & 0xffff
@@ -48,19 +49,19 @@ class parser:
 		self.opcode_2 = self.get_instruction_type(machine_code_word)
 		if self.opcode_2 == 0:
 			try:
-				text_segment_instance.append_instruction(instruction_instance.instruction_op_index[(self.opcode_2, self.get_funct(machine_code_word))], \
+				text_segment_instance.append_instruction(instruction_instance.instruction_op_index[self.opcode_2, self.get_funct(machine_code_word)], \
 				registers_instance.register_index[self.get_rs(machine_code_word)], \
 				registers_instance.register_index[self.get_rt(machine_code_word)], \
 				registers_instance.register_index[self.get_rd(machine_code_word)], \
-				registers_instance.register_index[self.get_shamt(machine_code_word)])
+				self.get_shamt(machine_code_word))
 			except KeyError:
-				pass
+				print "unknown instruction op 0"
 		elif (self.opcode_2 == 2) | (self.opcode_2 == 3):
 			try:
 				text_segment_instance.append_instruction(instruction_instance.instruction_op_index[self.opcode_2], \
 				registers_instance.register_index[self.get_address(machine_code_word)])
 			except KeyError:
-				pass
+				print "unknown instruction op 2 or 3"
 		else:
 			try:
 				text_segment_instance.append_instruction(instruction_instance.instruction_op_index[self.opcode_2], \
@@ -68,7 +69,7 @@ class parser:
 				registers_instance.register_index[self.get_rt(machine_code_word)], \
 				self.get_immediate(machine_code_word))
 			except KeyError:
-				pass
+				print "unknown I instruction"
 		return text_segment_instance.globl_main
 	def parse_32_bit_data(self, machine_code_word):
 		data_segment_instance.append_data(machine_code_word)
@@ -85,6 +86,7 @@ class parser:
 		try:
 			word = self.get_32_bits(machine_code_file)
 			while word != '':
+
 				self.parse_32_bit_data(word)
 				word = self.get_32_bits(machine_code_file)
 		finally:

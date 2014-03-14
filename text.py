@@ -1,3 +1,4 @@
+
 class text_segment:
 	def __init__(self):
 		self.pc = 0x03FFFFC
@@ -36,15 +37,23 @@ class text_segment:
 				instruction_string += hex(self.pc) + ": " \
 				+ self.globl_main[self.pc][0].name +"\n"
 			elif opcode == 0:
-				instruction_string += hex(self.pc) + ": " \
-				+ self.globl_main[self.pc][0].name + " " \
-				+ self.globl_main[self.pc][3].name + ", " \
-				+ self.globl_main[self.pc][1].name + ", " \
-				+ self.globl_main[self.pc][2].name + "\n"
+				if self.globl_main[self.pc][0].shift is True:
+					instruction_string += hex(self.pc) + ": " \
+					+ self.globl_main[self.pc][0].name + " " \
+					+ self.globl_main[self.pc][3].name + ", " \
+					+ self.globl_main[self.pc][2].name + ", " \
+					+ str(self.globl_main[self.pc][4]) + "\n"
+				else:
+					instruction_string += hex(self.pc) + ": " \
+					+ self.globl_main[self.pc][0].name + " " \
+					+ self.globl_main[self.pc][3].name + ", " \
+					+ self.globl_main[self.pc][1].name + ", " \
+					+ self.globl_main[self.pc][2].name + "\n"
 			elif (opcode == 2) | (opcode == 3):
 				instruction_string += hex(self.pc) + ": " \
 				+ self.globl_main[self.pc][0].name + " " \
 				+ hex(self.globl_main[self.pc][1]) + "\n"
+				print "jump instruction"
 			elif self.globl_main[self.pc][0].load_store is True:
 				instruction_string += hex(self.pc) + ": " \
 				+ self.globl_main[self.pc][0].name + " " \
