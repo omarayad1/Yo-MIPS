@@ -17,7 +17,6 @@ class parser:
 			return ''
 	def get_instruction_type(self, machine_code_word):
 		self.opcode = machine_code_word >> 26
-		print self.opcode
 		return self.opcode
 	def get_rs(self, machine_code_word):
 		self.rs = (machine_code_word >> 21) & 0x1f

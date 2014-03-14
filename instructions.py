@@ -18,7 +18,8 @@ class lui(instruction):
 		self.opcode = 0xf
 		self.name = 'lui'
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][2].value = text_segment_instance.globl_main[text_segment_instance.pc][3] << 16
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][3] << 16
 		return text_segment_instance.globl_main[text_segment_instance.pc][2].value
 class ori(instruction):
 	def __init__(self):
@@ -26,7 +27,8 @@ class ori(instruction):
 		self.opcode = 0xd
 		self.name = 'ori'
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][2].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value | \
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value | \
 		text_segment_instance.globl_main[text_segment_instance.pc][3]
 		return text_segment_instance.globl_main[text_segment_instance.pc][2].value
 class addi(instruction):
@@ -35,7 +37,8 @@ class addi(instruction):
 		self.opcode = 0x8
 		self.name = 'addi'
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][2].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value + \
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value + \
 		text_segment_instance.globl_main[text_segment_instance.pc][3]
 		return text_segment_instance.globl_main[text_segment_instance.pc][2].value
 class add(instruction):
@@ -45,7 +48,8 @@ class add(instruction):
 		self.funct = 0x20
 		self.name = 'add'
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][3].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value + \
+		text_segment_instance.globl_main[text_segment_instance.pc][3].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value + \
 		text_segment_instance.globl_main[text_segment_instance.pc][2].value
 		return text_segment_instance.globl_main[text_segment_instance.pc][3].value
 class sub(instruction):
@@ -55,7 +59,8 @@ class sub(instruction):
 		self.funct = 0x22
 		self.name = 'sub'
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][3].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value - \
+		text_segment_instance.globl_main[text_segment_instance.pc][3].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value - \
 		text_segment_instance.globl_main[text_segment_instance.pc][2].value
 		return text_segment_instance.globl_main[text_segment_instance.pc][3].value
 class addiu(instruction):
@@ -64,7 +69,8 @@ class addiu(instruction):
 		self.opcode = 0x9
 		self.name = 'addiu'
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][2].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value + \
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value + \
 		text_segment_instance.globl_main[text_segment_instance.pc][3]
 		return text_segment_instance.globl_main[text_segment_instance.pc][2].value
 class lw(instruction):
@@ -74,7 +80,8 @@ class lw(instruction):
 		self.name = 'lw'
 		self.load_store = True
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][2].value = data_segment_instance.load_word(text_segment_instance.globl_main[text_segment_instance.pc][1].value, \
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value = \
+		data_segment_instance.load_word(text_segment_instance.globl_main[text_segment_instance.pc][1].value, \
 		text_segment_instance.globl_main[text_segment_instance.pc][3])
 class bne(instruction):
 	def __init__(self):
@@ -82,7 +89,8 @@ class bne(instruction):
 		self.opcode = 0x5
 		self.name = 'bne'
 	def execute(self):
-		if text_segment_instance.globl_main[text_segment_instance.pc][2].value != text_segment_instance.globl_main[text_segment_instance.pc][1].value:
+		if text_segment_instance.globl_main[text_segment_instance.pc][2].value != \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value:
 			text_segment_instance.pc += (text_segment_instance.globl_main[text_segment_instance.pc][3] * 4)
 		else: pass
 class beq(instruction):
@@ -91,7 +99,8 @@ class beq(instruction):
 		self.opcode = 0x4
 		self.name = 'beq'
 	def execute(self):
-		if text_segment_instance.globl_main[text_segment_instance.pc][2].value == text_segment_instance.globl_main[text_segment_instance.pc][1].value:
+		if text_segment_instance.globl_main[text_segment_instance.pc][2].value == \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value:
 			text_segment_instance.pc += (text_segment_instance.globl_main[text_segment_instance.pc][3] * 4)
 		else: pass
 class and_(instruction):
@@ -101,7 +110,8 @@ class and_(instruction):
 		self.funct = 0x24
 		self.name = 'and'
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][3].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value & \
+		text_segment_instance.globl_main[text_segment_instance.pc][3].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value & \
 		text_segment_instance.globl_main[text_segment_instance.pc][2].value
 		return text_segment_instance.globl_main[text_segment_instance.pc][3].value
 class syscall(instruction):
@@ -119,7 +129,8 @@ class slti(instruction):
 		self.opcode = 0xa
 		self.name = 'slti'
 	def execute(self):
-		if text_segment_instance.globl_main[text_segment_instance.pc][1].value < text_segment_instance.globl_main[text_segment_instance.pc][3].value:
+		if text_segment_instance.globl_main[text_segment_instance.pc][1].value < \
+		text_segment_instance.globl_main[text_segment_instance.pc][3].value:
 			text_segment_instance.globl_main[text_segment_instance.pc][2].value = 1
 		else:
 			text_segment_instance.globl_main[text_segment_instance.pc][2].value = 0
@@ -131,7 +142,8 @@ class or_(instruction):
 		self.funct = 0x25
 		self.name = 'or'
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][3].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value | \
+		text_segment_instance.globl_main[text_segment_instance.pc][3].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value | \
 		text_segment_instance.globl_main[text_segment_instance.pc][2].value
 		return text_segment_instance.globl_main[text_segment_instance.pc][3].value
 class slt(instruction):
@@ -141,7 +153,8 @@ class slt(instruction):
 		self.funct = 0x2a
 		self.name = 'slt'
 	def execute(self):
-		if text_segment_instance.globl_main[text_segment_instance.pc][1].value < text_segment_instance.globl_main[text_segment_instance.pc][2].value:
+		if text_segment_instance.globl_main[text_segment_instance.pc][1].value < \
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value:
 			text_segment_instance.globl_main[text_segment_instance.pc][3].value = 1
 		else:
 			text_segment_instance.globl_main[text_segment_instance.pc][3].value = 0
@@ -153,7 +166,8 @@ class subu(instruction):
 		self.funct = 0x23
 		self.name = 'subu'
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][3].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value - \
+		text_segment_instance.globl_main[text_segment_instance.pc][3].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value - \
 		text_segment_instance.globl_main[text_segment_instance.pc][2].value
 		return text_segment_instance.globl_main[text_segment_instance.pc][3].value
 class addu(instruction):
@@ -163,7 +177,8 @@ class addu(instruction):
 		self.funct = 0x21
 		self.name = 'addu'
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][3].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value + \
+		text_segment_instance.globl_main[text_segment_instance.pc][3].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value + \
 		text_segment_instance.globl_main[text_segment_instance.pc][2].value
 		return text_segment_instance.globl_main[text_segment_instance.pc][3].value
 class xor(instruction):
@@ -173,7 +188,8 @@ class xor(instruction):
 		self.funct = 0x26
 		self.name = 'add'
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][3].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value ^ \
+		text_segment_instance.globl_main[text_segment_instance.pc][3].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value ^ \
 		text_segment_instance.globl_main[text_segment_instance.pc][2].value
 		return text_segment_instance.globl_main[text_segment_instance.pc][3].value
 class sll(instruction):
@@ -184,7 +200,8 @@ class sll(instruction):
 		self.name = 'sll'
 		self.shift = True
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][3].value = text_segment_instance.globl_main[text_segment_instance.pc][2].value << \
+		text_segment_instance.globl_main[text_segment_instance.pc][3].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value << \
 		text_segment_instance.globl_main[text_segment_instance.pc][4]
 		return text_segment_instance.globl_main[text_segment_instance.pc][3].value
 class srl(instruction):
@@ -195,7 +212,8 @@ class srl(instruction):
 		self.name = 'srl'
 		self.shift = True
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][3].value = text_segment_instance.globl_main[text_segment_instance.pc][2].value >> \
+		text_segment_instance.globl_main[text_segment_instance.pc][3].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value >> \
 		text_segment_instance.globl_main[text_segment_instance.pc][4]
 		return text_segment_instance.globl_main[text_segment_instance.pc][3].value
 class xori(instruction):
@@ -204,7 +222,8 @@ class xori(instruction):
 		self.opcode = 0xe
 		self.name = 'xori'
 	def execute(self):
-		text_segment_instance.globl_main[text_segment_instance.pc][2].value = text_segment_instance.globl_main[text_segment_instance.pc][1].value ^ \
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value ^ \
 		text_segment_instance.globl_main[text_segment_instance.pc][3]
 		return text_segment_instance.globl_main[text_segment_instance.pc][2].value
 class j(instruction):

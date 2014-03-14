@@ -5,6 +5,7 @@ from text import text_segment_instance
 from data import data_segment_instance
 from output import output_segment_instance, read_batee5_line_instance
 from registers import registers_instance
+from symbol_table import symbol_table_instance
 class register_box(QtGui.QTableWidget):
     def __init__(self, row, column, parent):
         super(register_box, self).__init__(row, column, parent)
@@ -65,7 +66,7 @@ class instruction_box(QtGui.QPlainTextEdit):
         self.binary_file = self.binary_file.replace('file://', '')
         machine_code = open(self.binary_file,'rb')
         batee5 = parser_instance.parse_all_instructions(machine_code)
-        self.setPlainText(text_segment_instance.print_instruction())
+        self.setPlainText(symbol_table_instance.print_instruction())
         self.setReadOnly(True)
     def dragLeaveEvent(self, e):
         self.setStyleSheet(u'background-color: #eee;')
@@ -93,7 +94,7 @@ class main_window(QtGui.QWidget):
         data_preview = data_box(1024, 4, self)
         data_preview.move(600, 65)
         self.registers_preview = register_box(1, 32, self)
-        self.registers_preview.move(200, 400)
+        self.registers_preview.move(200, 500)
         self.console_preview = console_box("Press simulate to begin program emulation", self)
         self.console_preview.move(600, 280)
         simulate_preview = simulate_button("simulate", self)
