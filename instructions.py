@@ -104,7 +104,7 @@ class beq(instruction):
 			text_segment_instance.pc += (text_segment_instance.globl_main[text_segment_instance.pc][3] * 4)
 		else: pass
 class and_(instruction):
-        def __init__(self):
+	def __init__(self):
 		instruction.__init__(self)
 		self.opcode = 0
 		self.funct = 0x24
@@ -114,6 +114,15 @@ class and_(instruction):
 		text_segment_instance.globl_main[text_segment_instance.pc][1].value & \
 		text_segment_instance.globl_main[text_segment_instance.pc][2].value
 		return text_segment_instance.globl_main[text_segment_instance.pc][3].value
+class andi(instruction):
+	def __init__(self):
+		instruction.__init__(self)
+		self.opcode = 0xc
+		self.name = 'andi'
+	def execute(self):
+		text_segment_instance.globl_main[text_segment_instance.pc][2].value = \
+		text_segment_instance.globl_main[text_segment_instance.pc][1].value & \
+		text_segment_instance.globl_main[text_segment_instance.pc][3]
 class syscall(instruction):
 	def __init__(self):
 		instruction.__init__(self)
@@ -255,5 +264,5 @@ class instruction_index:
 		, 0x23 : lw(), 0x5 : bne(), (0x0, 0xc) : syscall(), (0x0, 0x22) : sub()\
 		, (0x0,0x24) : and_(), 0xa : slti(), (0x0, 0x25) : or_(), (0x0, 0x2a) : slt(), (0x0, 0x23) : subu()\
 		, (0x0, 0x21) : addu(), (0x0, 0x26) : xor(), (0x0, 0x0) : sll(), (0x0, 0x02) : srl()\
-		, 0xe  : xori(), 0xc  : addi(), 0x4 : beq(), 0x2 : j(), 0x3 : jal()}
+		, 0xe  : xori(), 0xc  : addi(), 0x4 : beq(), 0x2 : j(), 0x3 : jal(), 0xc : andi()}
 instruction_instance = instruction_index()
