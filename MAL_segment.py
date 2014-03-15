@@ -1,3 +1,8 @@
+"""
+MAL segment Module
+
+- stores instructions with equivalent pseudo instructions 
+"""
 class MAL:
 	def __init__(self):
 		self.MAL_segment = {}

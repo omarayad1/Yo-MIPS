@@ -1,3 +1,8 @@
+"""
+Registers Module
+
+- Stores registers and their properties
+"""
 class register:
 	def __init__(self):
 		self.number = 0

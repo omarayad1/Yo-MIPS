@@ -1,3 +1,8 @@
+"""
+GUI Module
+
+- Do I really need to explain ?
+"""
 import sys
 from PySide import QtGui, QtCore
 from parser import parser_instance
@@ -7,6 +12,7 @@ from output import output_segment_instance, read_batee5_line_instance
 from registers import registers_instance
 from symbol_table import symbol_table_instance
 import copy
+
 class register_box(QtGui.QTableWidget):
     def __init__(self, row, column, parent):
         super(register_box, self).__init__(row, column, parent)

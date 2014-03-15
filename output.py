@@ -1,3 +1,10 @@
+"""
+Output Segment Modules
+
+- stores program output
+
+- TODO: handles program keyboard input
+"""
 class output_segment:
 	def __init__(self):
 		self.output = {}

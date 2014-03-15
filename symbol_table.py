@@ -1,3 +1,10 @@
+"""
+Symbol Table Module
+
+- Replaces Addresses in branch & Jump instructions with labels
+
+- prints out instructions TAL or MAL
+"""
 from text import text_segment_instance
 from MAL_segment import MAL_segment_instance
 import copy

@@ -1,3 +1,10 @@
+"""
+Instructions Module
+
+- stores instruction classes with their properties & executions
+
+- Handles SYSCALL instruction
+"""
 from registers import registers_instance
 from text import text_segment_instance
 from data import data_segment_instance

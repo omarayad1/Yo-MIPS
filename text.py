@@ -1,3 +1,8 @@
+"""
+Text Segment module
+
+- Stores program instructions and controls the execution of them
+"""
 class text_segment:
 	def __init__(self):
 		self.pc = 0x03FFFFC

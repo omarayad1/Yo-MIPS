@@ -1,3 +1,10 @@
+"""
+Data segment Module
+
+- stores program data
+
+- handles load instructions
+"""
 class data_segment:
 	def __init__(self):
 		self.current_address = 0x1000fffc

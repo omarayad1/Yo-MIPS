@@ -1,3 +1,12 @@
+"""
+Parser Module
+
+- Parses the Binary file into meaningful instructions
+
+- stores the instructions in the text segment
+
+- stores the data in the data segment
+"""
 import struct
 import copy
 from instructions import instruction_instance
