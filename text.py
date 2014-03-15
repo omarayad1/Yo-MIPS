@@ -1,4 +1,3 @@
-
 class text_segment:
 	def __init__(self):
 		self.pc = 0x03FFFFC

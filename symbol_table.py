@@ -16,6 +16,10 @@ class symbol_table:
 			| (text_segment_instance.globl_main[text_segment_instance.pc][0].name == 'bne'):
 				self.insert_ref(text_segment_instance.pc + \
 				(text_segment_instance.globl_main[text_segment_instance.pc][3] * 4) + 4)
+			elif (text_segment_instance.globl_main[text_segment_instance.pc][0].name == 'j') \
+			| (text_segment_instance.globl_main[text_segment_instance.pc][0].name == 'jal'):
+				self.insert_ref(text_segment_instance.globl_main[text_segment_instance.pc][1] << 2)
+			else: pass
 			text_segment_instance.pc += 4
 		text_segment_instance.pc = 0x03FFFFC + 4
 	def print_instruction(self):
@@ -64,11 +68,11 @@ class symbol_table:
 				try:
 					instruction_string += self.symbol_table[text_segment_instance.pc] + ": " \
 					+ text_segment_instance.globl_main[text_segment_instance.pc][0].name + " " \
-					+ hex(text_segment_instance.globl_main[text_segment_instance.pc][1]) + "\n"
+					+ self.symbol_table[text_segment_instance.globl_main[text_segment_instance.pc][1] << 2] + "\n"
 				except KeyError:
 					instruction_string += hex(text_segment_instance.pc) + ": " \
 					+ text_segment_instance.globl_main[text_segment_instance.pc][0].name + " " \
-					+ hex(text_segment_instance.globl_main[text_segment_instance.pc][1]) + "\n"
+					+ self.symbol_table[text_segment_instance.globl_main[text_segment_instance.pc][1] << 2] + "\n"
 			elif text_segment_instance.globl_main[text_segment_instance.pc][0].load_store is True:
 				try:
 					instruction_string += self.symbol_table[text_segment_instance.pc] + ": " \

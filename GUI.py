@@ -13,7 +13,7 @@ class register_box(QtGui.QTableWidget):
         self.setStyleSheet(u'background-color: #eee;')
         self.setHorizontalHeaderLabels(['$zero', '$at', '$v0', '$v1', '$a0', '$a1', '$a2', '$a3', '$t0', \
         '$t1', '$t2', '$t3', '$t4', '$t5', '$t6', '$t7', '$s0', '$s1', '$s2', '$s3', '$s4', '$s5', '$s6', \
-        '$s7', '$t8', '$t9', '$k0', '$k1', '$gp', '$sp'])
+        '$s7', '$t8', '$t9', '$k0', '$k1', '$gp', '$sp', '$fp', '$ra'])
 class simulate_button(QtGui.QPushButton):
     def __init__(self, title, parent):
         super(simulate_button, self).__init__(title, parent)
@@ -85,7 +85,7 @@ class main_window(QtGui.QWidget):
             # else:
             #     self.console_preview.setPlainText(output_segment_instance.output[output_segment_instance.current_line])
             output_segment_instance.current_line += 1
-        for i in xrange(30):
+        for i in xrange(32):
             item_teneen_2 = QtGui.QTableWidgetItem(str(registers_instance.register_index[i].value))
             self.registers_preview.setItem(0, i, item_teneen_2)
     def initUI(self):

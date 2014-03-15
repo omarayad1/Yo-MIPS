@@ -58,7 +58,7 @@ class parser:
 		elif (self.opcode_2 == 2) | (self.opcode_2 == 3):
 			try:
 				text_segment_instance.append_instruction(instruction_instance.instruction_op_index[self.opcode_2], \
-				registers_instance.register_index[self.get_address(machine_code_word)])
+				self.get_address(machine_code_word))
 			except KeyError:
 				print "unknown instruction op 2 or 3"
 		else:
