@@ -15,7 +15,7 @@ class MAL:
 	def la(self, address):
 		original_instruction = self.MAL_segment[address]
 		original_instruction.pop(1)
-		original_instruction[1] = self.MAL_segment[address+4][1]
+		original_instruction[1] = self.MAL_segment[address+4][2]
 		original_instruction[2] = (original_instruction[2] << 16) | self.MAL_segment[address+4][3]
 		original_instruction[0] = "la"
 		self.MAL_segment[address] = original_instruction

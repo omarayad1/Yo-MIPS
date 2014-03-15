@@ -1,5 +1,6 @@
 from text import text_segment_instance
 from MAL_segment import MAL_segment_instance
+import copy
 
 class symbol_table:
 	def __init__(self):
@@ -115,22 +116,70 @@ class symbol_table:
 			text_segment_instance.pc += 4
 		text_segment_instance.pc = 0x03FFFFC #resets the program counter
 		return instruction_string
-	def print_MAL_instruction(self):
+	def print_MAL_instruction(self): #7eta bouns keda 3ashan 5ater 3oyoon Dr. Shalan
 		instruction_string = ''
 		MAL_segment_instance.MAL_pc = 0x03FFFFC + 4
-		text_segment_instance.max_address = max(text_segment_instance.globl_main.keys())
+		max_address = max(text_segment_instance.globl_main.keys())
 		self.connect_labels()
+		MAL_segment_instance.MAL_segment = copy.deepcopy(text_segment_instance.globl_main)
 		MAL_segment_instance.replace_all()
-		while MAL_segment_instance.MAL_pc <= text_segment_instance.max_address:
-			try: 
-				if MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] == 'move' |\
-				MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] == 'li' |\
-				MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] == 'la' |\
-				MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] == 'subi'|\
-				MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] == None:
-					print "ps-sudo instruction"
-					MAL_segment_instance.MAL_pc += 4
-			except TypeError:
+		MAL_segment_instance.MAL_pc = 0x03FFFFC + 4
+		while MAL_segment_instance.MAL_pc <= max_address:
+			if (isinstance(MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0], str)):
+				MAL_instruction = MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0]
+				try:
+					if MAL_instruction == 'move':
+						instruction_string += self.symbol_table[MAL_segment_instance.MAL_pc] + ": "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] + " "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][2].name + ", "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][1].name + "\n"
+					elif MAL_instruction == 'li':
+						instruction_string += self.symbol_table[MAL_segment_instance.MAL_pc] + ": "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] + " "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][1].name + ", "\
+						+ str(MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][2]) + "\n"
+					elif MAL_instruction == 'la':
+						instruction_string += self.symbol_table[MAL_segment_instance.MAL_pc] + ": "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] + " "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][1].name + ", "\
+						+ hex(MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][2]) + "\n"
+					elif MAL_instruction == 'subi':
+						instruction_string += self.symbol_table[MAL_segment_instance.MAL_pc] + ": "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] + " "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][2].name + ", "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][1].name + ", "\
+						+ str(MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][3]) + "\n"
+					else:
+						pass
+				except KeyError:
+					if MAL_instruction == 'move':
+						instruction_string += hex(MAL_segment_instance.MAL_pc) + ": "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] + " "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][2].name + ", "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][1].name + "\n"
+					elif MAL_instruction == 'li':
+						instruction_string += hex(MAL_segment_instance.MAL_pc) + ": "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] + " "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][1].name + ", "\
+						+ str(MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][2]) + "\n"
+					elif MAL_instruction == 'la':
+						instruction_string += hex(MAL_segment_instance.MAL_pc) + ": "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] + " "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][1].name + ", "\
+						+ hex(MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][2]) + "\n"
+					elif MAL_instruction == 'subi':
+						instruction_string += hex(MAL_segment_instance.MAL_pc) + ": "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] + " "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][2].name + ", "\
+						+ MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][1].name + ", "\
+						+ str(MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][3]) + "\n"
+					else:
+						pass
+				MAL_segment_instance.MAL_pc += 4
+			elif (MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0] is None):
+				instruction_string += hex(MAL_segment_instance.MAL_pc) + ":\n"
+				MAL_segment_instance.MAL_pc += 4
+			else:
 				opcode = MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0].opcode
 				funct = MAL_segment_instance.MAL_segment[MAL_segment_instance.MAL_pc][0].funct
 				if (opcode == 0) & (funct == 0xc):
