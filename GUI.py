@@ -64,10 +64,10 @@ class instruction_box(QtGui.QPlainTextEdit):
         self.binary_file = e.mimeData().text()
         self.setStyleSheet(u'background-color: #eee')
         self.binary_file = self.binary_file.replace('\r\n', '')
-        self.binary_file = self.binary_file.replace('file://', '')
+        self.binary_file = self.binary_file.replace('file://', '') #this only works on *nix systems doesn't work on windows
         machine_code = open(self.binary_file,'rb')
         batee5 = parser_instance.parse_all_instructions(machine_code)
-        self.setPlainText(symbol_table_instance.print_instruction())
+        self.setPlainText(symbol_table_instance.print_MAL_instruction())
         self.setReadOnly(True)
     def dragLeaveEvent(self, e):
         self.setStyleSheet(u'background-color: #eee;')

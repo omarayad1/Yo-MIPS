@@ -1,9 +1,6 @@
-from text import text_segment_instance
-import copy
-
 class MAL:
 	def __init__(self):
-		self.MAL_segment = text_segment_instance.globl_main
+		self.MAL_segment = {}
 		self.MAL_pc = 0x03FFFFC + 4
 	def move(self, address):
 		original_instruction = self.MAL_segment[address]

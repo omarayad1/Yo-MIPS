@@ -16,6 +16,8 @@ class data_segment:
 		return half_word
 	def load_byte(self, address, offset):
 		whole_address = address + offset
-		byte = (self.data[whole_address][0])
+		address_offset = whole_address % 4
+		whole_address = whole_address - address_offset
+		byte = (self.data[whole_address][address_offset])
 		return byte
 data_segment_instance = data_segment()

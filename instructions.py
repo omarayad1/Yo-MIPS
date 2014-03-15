@@ -3,6 +3,7 @@ from text import text_segment_instance
 from data import data_segment_instance
 from output import output_segment_instance
 import copy
+
 class instruction:
 	def __init__(self):
 		self.opcode = 0
@@ -133,9 +134,17 @@ class syscall(instruction):
 		if registers_instance.register_index[2].value == 10:
 			output_segment_instance.append_output("Program has finished execution")
 		elif registers_instance.register_index[2].value == 1:
-			print registers_instance.register_index[4].value
 			output_segment_instance.append_output(str(registers_instance.register_index[4].value))
-			print output_segment_instance.output
+		elif registers_instance.register_index[2].value == 4:
+			string_address = registers_instance.register_index[4].value
+			string_asciiz = ''
+			char_batee5 = 'A'
+			offset = 1
+			while ord(char_batee5) != 0:
+				char_batee5 = chr(data_segment_instance.load_byte(string_address, offset))
+				string_asciiz += char_batee5
+				offset += 1
+			output_segment_instance.append_output(string_asciiz)
 		else:
 			pass
 class slti(instruction):
@@ -255,7 +264,7 @@ class jal(instruction):
 		self.opcode = 0x3
 		self.name = 'jal'
 	def execute(self):
-		registers_instance.register_index[31] = copy.deepcopy(text_segment_instance.pc) + 4
+		registers_instance.register_index[31] = text_segment_instance.pc + 4
 		text_segment_instance.pc = text_segment_instance.globl_main[text_segment_instance.pc][1] << 2
 		text_segment_instance.pc -= 4
 class instruction_index:
