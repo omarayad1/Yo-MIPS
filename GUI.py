@@ -6,6 +6,7 @@ from data import data_segment_instance
 from output import output_segment_instance, read_batee5_line_instance
 from registers import registers_instance
 from symbol_table import symbol_table_instance
+import copy
 class register_box(QtGui.QTableWidget):
     def __init__(self, row, column, parent):
         super(register_box, self).__init__(row, column, parent)
@@ -77,14 +78,10 @@ class main_window(QtGui.QWidget):
     def instruction_execute_all(self):
         text_segment_instance.execute_all_instructions()
         max_address = output_segment_instance.current_line
-        output_segment_instance.current_line = 0
-        while output_segment_instance.current_line < max_address:
-            # if isinstance(output_segment_instance.output[output_segment_instance.current_line], read_batee5_line_instance):
-            #     while not self.returnPressed:
-            #         self.setReadOnly(False)
-            # else:
-            #     self.console_preview.setPlainText(output_segment_instance.output[output_segment_instance.current_line])
-            output_segment_instance.current_line += 1
+        current_line = 0
+        while current_line < max_address:
+            self.console_preview.appendPlainText(output_segment_instance.output[current_line])
+            current_line += 1
         for i in xrange(32):
             item_teneen_2 = QtGui.QTableWidgetItem(str(registers_instance.register_index[i].value))
             self.registers_preview.setItem(0, i, item_teneen_2)

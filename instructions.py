@@ -123,6 +123,12 @@ class syscall(instruction):
 	def execute(self):
 		if registers_instance.register_index[2].value == 10:
 			output_segment_instance.append_output("Program has finished execution")
+		elif registers_instance.register_index[2].value == 1:
+			print registers_instance.register_index[4].value
+			output_segment_instance.append_output(str(registers_instance.register_index[4].value))
+			print output_segment_instance.output
+		else:
+			pass
 class slti(instruction):
         def __init__(self):
 		instruction.__init__(self)
