@@ -15,6 +15,14 @@ class parser:
 			return int(self.machine_code_word, 16)
 		except ValueError:
 			return ''
+	def get_32_bits_data(self, machine_code_file):
+		self.machine_code_word = machine_code_file.read(4)
+		try:
+			self.machine_code_word = struct.pack('>I', int(self.machine_code_word.encode('hex'), 16))
+			self.machine_code_word = self.machine_code_word.encode('hex')
+			return int(self.machine_code_word, 16)
+		except ValueError:
+			return ''
 	def get_instruction_type(self, machine_code_word):
 		self.opcode = machine_code_word >> 26
 		return self.opcode
@@ -83,11 +91,11 @@ class parser:
 			machine_code_file.close()
 	def parse_all_data(self, machine_code_file):
 		try:
-			word = self.get_32_bits(machine_code_file)
+			word = self.get_32_bits_data(machine_code_file)
 			while word != '':
 
 				self.parse_32_bit_data(word)
-				word = self.get_32_bits(machine_code_file)
+				word = self.get_32_bits_data(machine_code_file)
 		finally:
 			machine_code_file.close()
 parser_instance = parser()

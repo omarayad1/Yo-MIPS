@@ -11,7 +11,7 @@ class register_box(QtGui.QTableWidget):
     def __init__(self, row, column, parent):
         super(register_box, self).__init__(row, column, parent)
         self.setAcceptDrops(False)
-        self.setStyleSheet(u'background-color: #eee;')
+        self.setStyleSheet(u'background-color: #eee; max-height: 100px;')
         self.setHorizontalHeaderLabels(['$zero', '$at', '$v0', '$v1', '$a0', '$a1', '$a2', '$a3', '$t0', \
         '$t1', '$t2', '$t3', '$t4', '$t5', '$t6', '$t7', '$s0', '$s1', '$s2', '$s3', '$s4', '$s5', '$s6', \
         '$s7', '$t8', '$t9', '$k0', '$k1', '$gp', '$sp', '$fp', '$ra'])
