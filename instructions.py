@@ -232,7 +232,8 @@ class j(instruction):
 		self.opcode = 0x2
 		self.name = 'j'
 	def execute(self):
-		pass
+		text_segment_instance.pc = text_segment_instance.globl_main[text_segment_instance.pc][1] << 2
+		text_segment_instance.pc -= 4
 class instruction_index:
 	def __init__(self):
 		self.instruction_op_index = {0xf : lui(), 0xd : ori(), 0x8 : addi(), 0x9  : addiu(), (0x0, 0x20) : add()\

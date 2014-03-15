@@ -1,4 +1,5 @@
 from text import text_segment_instance
+from MAL_segment import MAL_segment_instance
 
 class symbol_table:
 	def __init__(self):
@@ -98,16 +99,18 @@ class symbol_table:
 					try:
 						instruction_string += self.symbol_table[text_segment_instance.pc] + ": " \
 						+ text_segment_instance.globl_main[text_segment_instance.pc][0].name + " " \
-						+ text_segment_instance.globl_main[text_segment_instance.pc][1].name + ", " \
 						+ text_segment_instance.globl_main[text_segment_instance.pc][2].name + ", " \
+						+ text_segment_instance.globl_main[text_segment_instance.pc][1].name + ", " \
 						+ str(text_segment_instance.globl_main[text_segment_instance.pc][3]) + "\n"
 					except KeyError:
 						instruction_string += hex(text_segment_instance.pc) + ": " \
 						+ text_segment_instance.globl_main[text_segment_instance.pc][0].name + " " \
-						+ text_segment_instance.globl_main[text_segment_instance.pc][1].name + ", " \
 						+ text_segment_instance.globl_main[text_segment_instance.pc][2].name + ", " \
+						+ text_segment_instance.globl_main[text_segment_instance.pc][1].name + ", " \
 						+ str(text_segment_instance.globl_main[text_segment_instance.pc][3]) + "\n"
 			text_segment_instance.pc += 4
 		text_segment_instance.pc = 0x03FFFFC #resets the program counter
 		return instruction_string
+	def print_MAL_instruction(self):
+		pass
 symbol_table_instance = symbol_table()
