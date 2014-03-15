@@ -12,7 +12,11 @@ from output import output_segment_instance, read_batee5_line_instance
 from registers import registers_instance
 from symbol_table import symbol_table_instance
 import copy
-
+class MAL_checkbox(QtGui.QCheckBox):
+    def __init__(self, title, parent):
+        super(MAL_checkbox, self).__init__(title, parent)
+    def parse_MAL_or_TAL(self):
+        print self.isChecked()
 class register_box(QtGui.QTableWidget):
     def __init__(self, row, column, parent):
         super(register_box, self).__init__(row, column, parent)
@@ -103,6 +107,8 @@ class main_window(QtGui.QWidget):
         simulate_preview = simulate_button("simulate", self)
         simulate_preview.move(600,600)
         simulate_preview.clicked.connect(self.instruction_execute_all)
+        self.MAL_checkbox_preview = MAL_checkbox("MAL", self)
+        self.MAL_checkbox_preview.move(450,100)
         self.setGeometry(200, 100, 1000, 650)
         self.setStyleSheet(u'background-color: #333')
         self.setWindowTitle('Yo! MIPS')
