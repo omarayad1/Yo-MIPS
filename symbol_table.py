@@ -45,6 +45,15 @@ class symbol_table:
 				except KeyError:
 					instruction_string += hex(text_segment_instance.pc) + ": " \
 					+ text_segment_instance.globl_main[text_segment_instance.pc][0].name +"\n"
+			elif (opcode == 0) & (funct == 0x8):
+				try:
+					instruction_string += self.symbol_table[text_segment_instance.pc] + ": " \
+					+ text_segment_instance.globl_main[text_segment_instance.pc][0].name +" "\
+					+ text_segment_instance.globl_main[text_segment_instance.pc][1].name + "\n"
+				except KeyError:
+					instruction_string += hex(text_segment_instance.pc) + ": " \
+					+ text_segment_instance.globl_main[text_segment_instance.pc][0].name +" "\
+					+ text_segment_instance.globl_main[text_segment_instance.pc][1].name + "\n"
 			elif opcode == 0:
 				if text_segment_instance.globl_main[text_segment_instance.pc][0].shift is True:
 					try:
