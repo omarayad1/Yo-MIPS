@@ -11,11 +11,6 @@ France is Bacon
 """
 # Yo! MIPS
 ## MIPS with SWAG
-### authors:
-
-Omar H. Ayad 	900112630
-
-Sherif Ismail 	900120050
 """
 """
 If you absolutly need to build the project from 

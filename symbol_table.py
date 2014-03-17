@@ -14,7 +14,7 @@ class symbol_table:
 		self.symbol_table = {}
 		self.instruction_count = 0
 	def insert_ref(self, address):
-		self.symbol_table.update({address : "batee5_label_" + str(self.instruction_count)})
+		self.symbol_table.update({address : "nasr_label_" + str(self.instruction_count)})
 		self.instruction_count += 1
 	def connect_labels(self):
 		text_segment_instance.pc = 0x03FFFFC + 4 + 4
@@ -132,7 +132,7 @@ class symbol_table:
 			text_segment_instance.pc += 4
 		text_segment_instance.pc = 0x03FFFFC #resets the program counter
 		return instruction_string
-	def print_MAL_instruction(self): #7eta bouns keda 3ashan 5ater 3oyoon Dr. Shalan
+	def print_MAL_instruction(self):
 		instruction_string = ''
 		MAL_segment_instance.MAL_pc = 0x03FFFFC + 4
 		max_address = max(text_segment_instance.globl_main.keys())
